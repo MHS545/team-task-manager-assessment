@@ -12,3 +12,4 @@ coverage/
 .firebase/
 firebase-debug*
 .DS_Store
+.artifacts/

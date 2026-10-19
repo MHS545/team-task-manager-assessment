@@ -4,12 +4,12 @@ async function walk(directory) {
   const result = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const name = directory + '/' + entry.name;
-    if (entry.isDirectory()) result.push(...await walk(name));
+    if (entry.isDirectory()) result.push(...(await walk(name)));
     else if (/\.(js|mjs)$/.test(name)) result.push(name);
   }
   return result;
 }
-for (const file of [...await walk('server'), ...await walk('scripts')]) {
+for (const file of [...(await walk('server')), ...(await walk('scripts'))]) {
   const result = spawnSync(process.execPath, ['--check', file], { stdio: 'inherit' });
   if (result.status !== 0) process.exit(result.status || 1);
 }
