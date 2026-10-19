@@ -1,0 +1,8 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Browser clients never access Firestore directly. Express enforces authorization.
+    // Admin SDK calls use the server's IAM identity and bypass these rules.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
