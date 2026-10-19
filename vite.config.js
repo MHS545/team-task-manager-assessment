@@ -4,5 +4,5 @@ export default defineConfig({
   root: 'client',
   plugins: [react()],
   build: { outDir: '../dist', emptyOutDir: true },
-  server: { port: 5173, strictPort: true, proxy: { '/api': 'http://127.0.0.1:3001' } }
+  server: { port: 5173, strictPort: true, proxy: { '/api': 'http://127.0.0.1:3001' } },
 });
