@@ -8,7 +8,7 @@ These checks were run locally on Windows during implementation:
 - Headless Google Chrome UI flow: passed.
 - Desktop (1440 × 1000) and mobile (390 × 844) page overflow checks: passed.
 - Desktop dashboard and mobile team/sign-in screenshots: saved locally in ignored .artifacts/.
-- Production dependency audit: zero reported vulnerabilities after sanitizer and scoped UUID dependency updates.
+- Full dependency audit (including build tools): zero reported vulnerabilities after sanitizer, scoped UUID, and Tailwind Vite updates.
 - Formatting: checked with Prettier.
 - Git feature branches and merge commits: created and pushed to GitHub.
 
