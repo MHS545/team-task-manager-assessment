@@ -13,3 +13,8 @@ coverage/
 firebase-debug*
 .DS_Store
 .artifacts/
+.vercel/
+public/
+
+.vercel
+.env*

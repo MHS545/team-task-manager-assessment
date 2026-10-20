@@ -10,9 +10,11 @@
     "dev": "concurrently -k -n API,WEB \"node --watch server/index.js\" \"vite --host 127.0.0.1\"",
     "build": "vite build",
     "start": "node server/index.js",
-    "test": "node --test test/api.test.js",
+    "test": "node --test test/api.test.js test/extended.test.js test/client-api.test.js",
     "check": "node scripts/check.mjs",
     "test:browser": "node test/browser-check.mjs",
+    "test:browser:audit": "node test/browser-audit.mjs",
+    "test:live": "node test/live-audit.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {

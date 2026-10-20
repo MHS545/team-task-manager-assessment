@@ -1,4 +1,4 @@
-import { applicationDefault, initializeApp } from 'firebase-admin/app';
+import { applicationDefault, cert, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 
 const unpack = (snapshot) => (snapshot.exists ? { ...snapshot.data(), id: snapshot.id } : null);
@@ -25,7 +25,12 @@ export function createFirestoreStore(projectId) {
   if (!projectId)
     throw new Error('Set GOOGLE_CLOUD_PROJECT to your Firebase project ID. See docs/FIREBASE.md.');
   const options = { projectId };
-  if (!process.env.FIRESTORE_EMULATOR_HOST) options.credential = applicationDefault();
+  if (!process.env.FIRESTORE_EMULATOR_HOST) {
+    // Keep the service account in a server-only secret on Vercel.
+    options.credential = process.env.FIREBASE_SERVICE_ACCOUNT_JSON
+      ? cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON))
+      : applicationDefault();
+  }
   const app = initializeApp(options);
   const db = getFirestore(app);
   const reads = adapter(db);
