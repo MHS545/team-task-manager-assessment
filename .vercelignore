@@ -1,0 +1,13 @@
+.git
+.env
+.env.*
+.secrets
+.artifacts
+node_modules
+dist
+test
+*.log
+*.pem
+*-key.json
+*service-account*.json
+public

@@ -9,8 +9,13 @@ async function walk(directory) {
   }
   return result;
 }
-for (const file of [...(await walk('server')), ...(await walk('scripts'))]) {
+for (const file of [
+  ...(await walk('server')),
+  ...(await walk('scripts')),
+  ...(await walk('api')),
+  ...(await walk('test')),
+]) {
   const result = spawnSync(process.execPath, ['--check', file], { stdio: 'inherit' });
   if (result.status !== 0) process.exit(result.status || 1);
 }
-console.log('Server and script syntax checks passed.');
+console.log('Server, API, scripts and test syntax checks passed.');

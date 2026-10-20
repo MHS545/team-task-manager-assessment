@@ -1107,6 +1107,7 @@ textarea::placeholder {
   max-width: 125px;
 }
 .task-table-wrap {
+  position: relative;
   overflow-x: auto;
 }
 .task-table {

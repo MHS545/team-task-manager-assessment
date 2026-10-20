@@ -28,7 +28,19 @@ const password = z
     'Password must be at most 72 UTF-8 bytes',
   );
 export const registerSchema = z.object({ name: plain(2, 80), email, password }).strict();
-export const loginSchema = z.object({ email, password: z.string().min(1).max(1024) }).strict();
+export const loginSchema = z
+  .object({
+    email,
+    password: z
+      .string()
+      .min(1)
+      .max(1024)
+      .refine(
+        (value) => Buffer.byteLength(value, 'utf8') <= 72,
+        'Password must be at most 72 UTF-8 bytes',
+      ),
+  })
+  .strict();
 export const teamSchema = z
   .object({ name: plain(2, 80), description: plain(0, 500).default('') })
   .strict();

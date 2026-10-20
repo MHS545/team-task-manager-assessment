@@ -40,7 +40,7 @@ Set APP_ORIGIN=http://localhost:3001 in .env, then run npm start. Development me
     npm test
     npm run build
 
-The 14 automated checks exercise registration/login/logout, HTTP-only cookies, CSRF, session regeneration, validation, sanitization, concurrent registration, team isolation, creator permissions, task assignment and CRUD, filters, reminders, invitation acceptance, and rate limiting. Tests use an isolated test double and do not prove a live Firebase or PostgreSQL connection.
+The 80 automated checks exercise registration/login/logout, HTTP-only cookies, CSRF, session regeneration, validation, sanitization, concurrent registration, team isolation, creator permissions, task assignment and CRUD, filters, reminders, invitation acceptance, and rate limiting. Tests use an isolated test double and do not prove a live Firebase or PostgreSQL connection.
 
 GitHub Actions runs these checks for main, feature branches, and pull requests.
 
@@ -58,10 +58,10 @@ A GCP deployment is required by the PDF. The repository includes a production Do
 
 The free Firestore database does not replace the required PostgreSQL production session store. Enabling billing for Cloud Run changes Spark to Blaze, and the full deployed stack is not guaranteed to be free.
 
-- GitHub repository: https://github.com/MHS545/team-task-manager-assessment (private).
+- GitHub repository: https://github.com/MHS545/team-task-manager-assessment (public).
 - Live GCP URL: pending account configuration and deployment.
-- Live Firestore verification: pending Google authorization.
-- Production PostgreSQL sessions: pending DATABASE_URL and verification.
+- Live Firestore verification: successful with the replacement Firebase service account key on 2026-10-20.
+- Production PostgreSQL sessions: Neon Free connected; live CSRF/session creation and secure cookie checks passed on 2026-10-20.
 
 The actual status must be updated after external setup. Do not submit placeholders or describe local checks as cloud deployment.
 
@@ -71,6 +71,14 @@ The repository is developed on genuine feature branches and merged with merge co
 
     git log --graph --oneline --all
 
-Keep the feature branches on GitHub so the assessor can inspect development history. The publication script creates a **private** repository; invite the assessor or change visibility intentionally before submitting.
+The repository is public. Keep the feature branches and merge history on GitHub so the assessor can inspect development history.
 
 See [requirements mapping](docs/REQUIREMENTS.md), [API contract](docs/API.md), and [deployment guide](docs/DEPLOYMENT.md).
+
+## Alternative hosting: Vercel
+
+Vercel deployment support is included. See [Vercel setup](docs/VERCEL.md). This alternative does not satisfy the PDF's Google Cloud hosting requirement. Live Vercel URL: https://team-task-manager-eta-two.vercel.app. Deployed in the owner-verified MHS Hobby account. Live frontend, static assets, session API, secure cookies, and signed-out workspace API guards passed checks. Firestore read access was verified. The later full audit passed 11 live workflow checks including registration, login, teams, tasks, filters, permissions, invitations and logout; temporary audit records were removed. See [full audit results](docs/ASSESSMENT-AUDIT.md).
+
+## Full audit and broader tests
+
+See [the requirement-by-requirement audit](docs/ASSESSMENT-AUDIT.md). Run npm run test:browser:audit for the expanded local Chrome checks. The opt-in live runner is npm run test:live -- --run-live and requires authorized Firebase credentials for scoped cleanup. Heavy tests remain local. The latest fixes, deployment configuration and audit tests are included in the assessment-audit publication and its Git history.
